@@ -32,7 +32,7 @@ def convert_ratios_to_pixels(image_shape, regions_ratio):
     return regions_pixel
 
 
-# 탐지한 객체 좌표가 모서리 영약에 있는지 검증
+# 탐지한 객체 좌표가 모서리 영역에 있는지 검증
 def point_in_region(x, y, region):
     (x1, y1), (x2, y2) = region
     return x1 <= x <= x2 and y1 <= y <= y2
@@ -97,7 +97,7 @@ for result in results:
             "included_corners": list(object_corners)
         })
 
-        #  시각화 obb 박스와 클래스 번호
+        #  시각화 obb 박스와 클래스 객체(재단선, 책등) 번호
         pts = [(int(x), int(y)) for x, y in coords]
         cv2.polylines(draw_img, [np.array(pts, dtype=np.int32)], isClosed=True, color=(0, 255, 0), thickness=2)
         cv2.putText(draw_img, f"cls:{cls}", pts[0], cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
